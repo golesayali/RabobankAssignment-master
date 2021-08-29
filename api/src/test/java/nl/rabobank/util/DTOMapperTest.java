@@ -46,8 +46,13 @@ class DTOMapperTest {
 
     @Test
     void givenCreateAuthorizationRequest_shouldMapToServiceInput() {
-        CreateAuthorizationRequest request = new CreateAuthorizationRequest(
-                "test_GranteeName", "tests_grantorName", "tests_AccNumber", "PAYMENT", "READ");
+        CreateAuthorizationRequest request = CreateAuthorizationRequest.builder()
+                .granteeName("test_GranteeName")
+                .grantorName("tests_grantorName")
+                .accountNumber("tests_AccNumber")
+                .accountType("PAYMENT")
+                .typeOfAuthorization("READ")
+                .build();
         PowerOfAttorney serviceInput = DTOMapper.mapRequestToServiceInput(request);
         assertNotNull(serviceInput);
         assertEquals(PowerOfAttorney.builder()

@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @Slf4j
 public class AccountAuthorizationController {
-    public static final String ACCOUNT_AUTH_API_PATH = "/v1/account/authorization";
+    public static final String ACCOUNT_AUTH_API_PATH = "/v1/account";
 
     @Autowired
     AccountAuthorizationService accountAuthorizationService;
@@ -38,7 +38,10 @@ public class AccountAuthorizationController {
     @ApiOperation(value = "Create write or read access for payments and savings accounts",
             httpMethod = "POST",
             response = String.class)
-    @PostMapping
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Not authorized"),
+            @ApiResponse(code = 400, message = "Bad Request")})
+    @PostMapping("/authorization")
     public ResponseEntity<CreateAuthorizationResponse> createAuthorization(
             @RequestBody CreateAuthorizationRequest createAuthorizationRequest) {
 
@@ -65,8 +68,8 @@ public class AccountAuthorizationController {
             response = RetrieveAuthorizationsResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 401, message = "Not authorized"),
-            @ApiResponse(code = 404, message = "User not found")})
-    @GetMapping("/{granteeName}")
+            @ApiResponse(code = 400, message = "Bad Request")})
+    @GetMapping("/authorization/{granteeName}")
     public ResponseEntity<RetrieveAuthorizationsResponse> retrieveAuthorizations(
             @ApiParam(name = "granteeName", value = "Grantee Name", required = true)
             @PathVariable String granteeName) {

@@ -1,6 +1,7 @@
 package nl.rabobank.dto;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Value;
  *
  * @author Sayali G
  */
-@Value
+@Data
 @Builder
 public class AccountAuthorizationDTO {
     private String accountNumber;

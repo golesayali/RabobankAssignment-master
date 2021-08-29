@@ -1,13 +1,16 @@
 package nl.rabobank.dto;
 
-import lombok.Value;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This is class for request for Create Authorization API
  *
  * @author Sayali G
  */
-@Value
+@Data
+@Builder
 public class CreateAuthorizationRequest {
     private String granteeName;
     private String grantorName;
