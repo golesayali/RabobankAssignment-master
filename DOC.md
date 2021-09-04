@@ -9,7 +9,20 @@ users to create authorization for different types of accounts and retrieve autho
 * Users can create write or read access for payments and savings accounts
 * Users can retrieve a list of accounts they have read or write access for
 
-## Install & Running
+
+### Prerequisites
+* [Java 11](http://www.oracle.com/technetwork/java/javase/downloads/index.html)  - Programming language
+  Please install JDK 9+ and set JAVA_HOME to this jdk.
+* [MongoDB Community Server](https://www.mongodb.com/try/download/community) - MongoDB Community Server
+* [MongoDB Database Tools](https://www.mongodb.com/try/download/database-tools) - MongoDB database tools
+* [Maven](https://maven.apache.org/) - Build tool
+* [Junit](https://junit.org/junit5/) - Junit
+* [Postman](https://www.postman.com/) - Postman
+
+## Setup Local MongoDB Server
+Setup MongoDB server on local using the steps mentioned [Document](https://docs.mongodb.com/manual/administration/install-community/)
+
+## Install & Run Application
 
 ##### 1) Open Git Bash. Go to the folder where you want to checkout the code.
 
@@ -54,16 +67,6 @@ After running the project on dev/local environment and browse **http://localhost
    Import the collection present at [~/RabobankAssignment-master/api/src/test/resources/AccountAuthorizationApplication.postman_collection.json] into your Postman application.
 
 4. Run the collection.
-
-
-### Prerequisites
-* [Java 11](http://www.oracle.com/technetwork/java/javase/downloads/index.html)  - Programming language
-  Please install JDK 9+ and set JAVA_HOME to this jdk.
-* [MongoDB Community Server](https://www.mongodb.com/try/download/community) - MongoDB Community Server
-* [MongoDB Database Tools](https://www.mongodb.com/try/download/database-tools) - MongoDB database tools
-* [Maven](https://maven.apache.org/) - Build tool
-* [Junit](https://junit.org/junit5/) - Junit
-* [Postman](https://www.postman.com/) - Postman
 
 
 ### Future improvements
