@@ -13,7 +13,7 @@ users to create authorization for different types of accounts and retrieve autho
 
 ##### 1) Open Git Bash. Go to the folder where you want to checkout the code.
 
-cd git/
+cd AccountAuthorizationApplication/
 
 ##### 2) Clone the code from git into the folder
 
@@ -25,7 +25,6 @@ cd RabobankAssignment-master
 
 ##### 4) Start the application on local using maven
 
-cd api
 mvn spring-boot:run
 
 The application is now started on local.
@@ -59,6 +58,7 @@ After running the project on dev/local environment and browse **http://localhost
 
 ### Prerequisites
 * [Java 11](http://www.oracle.com/technetwork/java/javase/downloads/index.html)  - Programming language
+  Please install JDK 9+ and set JAVA_HOME to this jdk.
 * [MongoDB Community Server](https://www.mongodb.com/try/download/community) - MongoDB Community Server
 * [MongoDB Database Tools](https://www.mongodb.com/try/download/database-tools) - MongoDB database tools
 * [Maven](https://maven.apache.org/) - Build tool

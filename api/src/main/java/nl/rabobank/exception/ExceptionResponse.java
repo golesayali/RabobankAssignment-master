@@ -26,4 +26,16 @@ public class ExceptionResponse extends ResponseEntity {
         this.status = status;
         this.message = message;
     }
+
+    /**
+     * This is static method which sets the exception
+     *
+     * @param message as error message
+     * @param status  http status
+     * @return ExceptionResponse pojo
+     */
+    public static ExceptionResponse of(final String message, HttpStatus status) {
+        return new ExceptionResponse(message, status);
+    }
+
 }
