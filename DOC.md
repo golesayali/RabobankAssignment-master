@@ -38,18 +38,17 @@ After running the project on dev/local environment and browse **http://localhost
 ### How to test this application
 
 * Using Postman API Application (on Local machine)
-1. Setup mongo import tool on local
-   Step 1: To use mongoimport tool we have to first download the MongoDB database tools .zip file from _https://www.mongodb.com/try/download/database-tools_.
-   Step 2: After downloading the zip file and unzip the downloaded folder.
-   Step 3: Goto MongoDB bin folder and copy-paste the bin folders all .exe files into the MongoDB bin folder[for Windows : C:\Program Files\MongoDB\Server\4.4\bin].
+1. Setup mongo import tool on local 
+   - Step 1: To use mongoimport tool we have to first download the MongoDB database tools .zip file from _https://www.mongodb.com/try/download/database-tools_.
+   - Step 2: After downloading the zip file and unzip the downloaded folder.
+   - Step 3: Goto MongoDB bin folder and copy-paste the bin folders all .exe files into the MongoDB bin folder[for Windows : C:\Program Files\MongoDB\Server\4.4\bin].
 
-2. Import the test data for bank accounts
-   This will import the bank account info which are used for testing in postman collection
-   Step 1: Open a command prompt and give command mongod to connect with MongoDB server and don’t close this cmd to stay connected to the server.
-   Step 2: Open another command prompt and run the mongo shell. Using the mongo command.
-   Step 3: Open one more command prompt window and direct it to bin folder[C:\Program Files\MongoDB\Server\4.4\bin] and now you are ready to import files in mongoDB database.
-   Step 4: Run this command
-   mongoimport –-jsonArray –-db test –-collection bankaccount –-file <path_to_test_data_file>
+2. Import the test data for bank accounts : This will import the bank account info which are used for testing in postman collection
+   - Step 1: Open a command prompt and give command mongod to connect with MongoDB server and don’t close this cmd to stay connected to the server.
+   - Step 2: Open another command prompt and run the mongo shell. Using the mongo command.
+   - Step 3: Open one more command prompt window and direct it to bin folder[C:\Program Files\MongoDB\Server\4.4\bin] and now you are ready to import files in mongoDB database.
+   - Step 4: Run this command
+   : mongoimport –-jsonArray –-db test –-collection bankaccount –-file <path_to_test_data_file>
    Note: test data file is present at  [~/RabobankAssignment-master/api/src/test/resources/bankaccount.json]
 
 3. Import the collection in Postman application and run the collection

@@ -38,3 +38,7 @@ Notes
 A Power of Attorney is used when someone (grantor) wants to give access to his/her account to someone else (grantee). This
 could be read access or write access. In this way the grantee can read/write in the grantors account.
 Notice that this is a simplified version of reality.
+
+## Local setup for application and testings
+The implementation details and information about local setup can be found in this [Document](DOC.md)
+
