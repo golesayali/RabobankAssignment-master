@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "eb3fbcf2-6fd4-48f3-9061-900027cda60c",
+		"name": "Account Authorization Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add new grantee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"accountNumber\": \"NL86RABO0666666666\",\r\n  \"accountType\": \"PAYMENT\",\r\n  \"granteeName\": \"Mark\",\r\n  \"grantorName\": \"Rachel\",\r\n  \"typeOfAuthorization\": \"WRITE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve accounts for Grantee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"granteeName\": \"Mark\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update existing grantee rights",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"accountNumber\": \"NL86RABO0666666666\",\r\n  \"accountType\": \"PAYMENT\",\r\n  \"granteeName\": \"Mark\",\r\n  \"grantorName\": \"Rachel\",\r\n  \"typeOfAuthorization\": \"READ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve existing grantee accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"granteeName\": \"Mark\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create authorization : Invalid request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"accountNumber\": \"NL86RABO0666666666\",\r\n  \"accountType\": \"Invalid\",\r\n  \"granteeName\": \"Mark\",\r\n  \"grantorName\": \"Rachel\",\r\n  \"typeOfAuthorization\": \"WRITE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorizations are not updated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Authorization : Invalid Request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"granteeName\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

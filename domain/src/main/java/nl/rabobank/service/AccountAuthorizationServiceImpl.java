@@ -6,7 +6,6 @@ import nl.rabobank.authorizations.PowerOfAttorney;
 import nl.rabobank.exception.ResourceNotFoundException;
 import nl.rabobank.mongo.entity.BankAccount;
 import nl.rabobank.mongo.repository.BankAccountRepository;
-import nl.rabobank.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +22,26 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class AccountAuthorizationServiceImpl implements AccountAuthorizationService {
+    /**
+     * The Bank account repository.
+     */
     @Autowired
     BankAccountRepository bankAccountRepository;
 
     @Override
-    public void createAuthorization(PowerOfAttorney grantee) {
+    public void createAuthorization(PowerOfAttorney grantee) throws ResourceNotFoundException{
         log.debug("Creating authorization for account number : [{}]", grantee.getAccount().getAccountNumber());
         BankAccount bankAccountRecord = Optional.of(retrieveBankAccount(grantee.getAccount())).get()
                 .orElseThrow(() ->
                 {
                     log.error("Bank account with provided account number:[{}] and account type:[{}] not found",
                             grantee.getAccount().getAccountNumber(),
-                            ServiceUtils.determineAccountType(grantee.getAccount()));
+                            AccountAuthorizationServiceHelper.determineAccountType(grantee.getAccount()));
                     throw new ResourceNotFoundException("Bank account with provided account number and account type not found");
                 });
 
         BankAccount accountWithUpdatedAuthorization =
-                ServiceUtils.checkIfUserIsAlreadyAuthorized(
+                AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
                         bankAccountRecord, grantee.getGranteeName(), grantee.getAuthorization().name());
 
         log.debug("Persisting authorizations to database for account number : [{}]", grantee.getAccount().getAccountNumber());
@@ -56,7 +58,7 @@ public class AccountAuthorizationServiceImpl implements AccountAuthorizationServ
 
     private Optional<BankAccount> retrieveBankAccount(Account account) {
         log.debug("Retrieving bank account : [{}]", account);
-        String accountType = ServiceUtils.determineAccountType(account);
+        String accountType = AccountAuthorizationServiceHelper.determineAccountType(account);
         return bankAccountRepository
                 .findByAccountNumberAndAccountType(account.getAccountNumber(), accountType);
     }

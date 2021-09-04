@@ -10,12 +10,10 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ApplicationUtilsTest {
+class AccountAuthorizationApplicationHelperTest {
     @Test
     void whenInstantiatingUtilsClass_shouldThrowException() {
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            new ApplicationUtils();
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, AccountAuthorizationApplicationHelper::new);
         assertEquals("Utility Classes should not have public constructors", exception.getMessage());
 
     }
@@ -23,44 +21,38 @@ class ApplicationUtilsTest {
     @Test
     void whenAccountTypeIsPayment_shouldReturnPaymentAccountInstance() {
         assertThat(
-                ApplicationUtils.determineAccountType("SAVINGS", "NL12ABNA0214789630", "test")
+                AccountAuthorizationApplicationHelper.determineAccountType("SAVINGS", "NL12RABO0214789630", "test")
                 , instanceOf(SavingsAccount.class));
     }
 
     @Test
     void whenAccountTypeIsSavings_shouldReturnSavingsAccountInstance() {
         assertThat(
-                ApplicationUtils.determineAccountType("PAYMENT", "NL12ABNA0214789630", "test")
+                AccountAuthorizationApplicationHelper.determineAccountType("PAYMENT", "NL12RABO0214789630", "test")
                 , instanceOf(PaymentAccount.class));
     }
 
     @Test
     void whenAccountTypeIsInvalid_shouldThrowException() {
-        Throwable exception = assertThrows(AccountAuthorizationException.class, () -> {
-            ApplicationUtils.determineAccountType("invalid", "NL12ABNA0214789630", "test");
-        });
+        Throwable exception = assertThrows(AccountAuthorizationException.class, () -> AccountAuthorizationApplicationHelper.determineAccountType("invalid", "NL12RABO0214789630", "test"));
         assertEquals("Invalid account type provided in request. Allowed values are PAYMENT,SAVINGS", exception.getMessage());
     }
 
     @Test
     void whenProvidedAuthorizationIsRead_shouldReturnREADEnum() {
-        assertEquals(
-                ApplicationUtils.determineAuthorization("READ")
-                , Authorization.READ);
+        assertEquals(Authorization.READ,
+                AccountAuthorizationApplicationHelper.determineAuthorization("READ"));
     }
 
     @Test
     void whenProvidedAuthorizationIsWrite_shouldReturnWRITEEnum() {
-        assertEquals(
-                ApplicationUtils.determineAuthorization("WRITE")
-                , Authorization.WRITE);
+        assertEquals(Authorization.WRITE,
+                AccountAuthorizationApplicationHelper.determineAuthorization("WRITE"));
     }
 
     @Test
     void whenProvidedAuthorizationIsInvalid_shouldThrowException() {
-        Throwable exception = assertThrows(AccountAuthorizationException.class, () -> {
-            ApplicationUtils.determineAuthorization("read");
-        });
+        Throwable exception = assertThrows(AccountAuthorizationException.class, () -> AccountAuthorizationApplicationHelper.determineAuthorization("read"));
         assertEquals("Invalid access type provided in request. Allowed values are READ, WRITE", exception.getMessage());
 
     }

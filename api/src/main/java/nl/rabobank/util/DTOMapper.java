@@ -8,6 +8,7 @@ import nl.rabobank.mongo.entity.BankAccount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class contains mapper methods for converting data objects to responses
@@ -17,20 +18,37 @@ import java.util.List;
  */
 public class DTOMapper {
 
+    /**
+     * Instantiates a new Dto mapper.
+     */
     DTOMapper() {
         throw new IllegalStateException("Utility Classes should not have public constructors");
     }
 
+    /**
+     * Map service output to response retrieve authorizations response.
+     *
+     * @param authorizedAccountsForGrantee the authorized accounts for grantee
+     * @param granteeName                  the grantee name
+     * @return the retrieve authorizations response
+     */
     public static RetrieveAuthorizationsResponse mapServiceOutputToResponse(
             List<BankAccount> authorizedAccountsForGrantee,
             String granteeName) {
         List<AccountAuthorizationDTO> authorizedAccountsList = new ArrayList<>();
         authorizedAccountsForGrantee.stream()
                 .forEach(account ->
-                        authorizedAccountsList.add(AccountAuthorizationDTO.builder()
-                                .accountNumber(account.getAccountNumber())
-                                .accountType(account.getAccountType())
-                                .build())
+                        {
+                            String accessType = account.getAccountAuthorizations().stream()
+                                    .filter(p -> p.getGranteeName().equals(granteeName))
+                                    .collect(Collectors.toList())
+                                    .get(0).getAccessType();
+                            authorizedAccountsList.add(AccountAuthorizationDTO.builder()
+                                    .accountNumber(account.getAccountNumber())
+                                    .accountType(account.getAccountType())
+                                    .accessType(accessType)
+                                    .build());
+                        }
                 );
         return RetrieveAuthorizationsResponse.builder()
                 .granteeName(granteeName)
@@ -39,17 +57,23 @@ public class DTOMapper {
 
     }
 
+    /**
+     * Map request to service input power of attorney.
+     *
+     * @param createAuthorizationRequest the create authorization request
+     * @return the power of attorney
+     */
     public static PowerOfAttorney mapRequestToServiceInput(
             CreateAuthorizationRequest createAuthorizationRequest) {
 
         return PowerOfAttorney.builder()
                 .granteeName(createAuthorizationRequest.getGranteeName())
                 .grantorName(createAuthorizationRequest.getGrantorName())
-                .account(ApplicationUtils.determineAccountType(
+                .account(AccountAuthorizationApplicationHelper.determineAccountType(
                         createAuthorizationRequest.getAccountType(),
                         createAuthorizationRequest.getAccountNumber(),
                         createAuthorizationRequest.getGrantorName()))
-                .authorization(ApplicationUtils.determineAuthorization(createAuthorizationRequest.getTypeOfAuthorization()))
+                .authorization(AccountAuthorizationApplicationHelper.determineAuthorization(createAuthorizationRequest.getTypeOfAuthorization()))
                 .build();
     }
 

@@ -33,6 +33,11 @@ public class SwaggerConfig {
     private String url;
     private String email;
 
+    /**
+     * Api docket.
+     *
+     * @return the docket
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

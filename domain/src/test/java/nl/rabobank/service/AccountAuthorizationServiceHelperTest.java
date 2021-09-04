@@ -1,4 +1,4 @@
-package nl.rabobank.util;
+package nl.rabobank.service;
 
 import nl.rabobank.account.PaymentAccount;
 import nl.rabobank.account.SavingsAccount;
@@ -11,15 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServiceUtilsTest {
+class AccountAuthorizationServiceHelperTest {
 
     @Test
     void whenInstantiatingServiceUtilsClass_shouldThrowException() {
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            new ServiceUtils();
+            new AccountAuthorizationServiceHelper();
         });
         assertEquals("Utility Classes should not have public constructors", exception.getMessage());
 
@@ -29,7 +28,7 @@ class ServiceUtilsTest {
     void givenPaymentAccount_shouldReturnPaymentAccountType() {
         assertEquals(
                 "PAYMENT",
-                ServiceUtils.determineAccountType(new PaymentAccount("accNum", "accHolder", 0.0))
+                AccountAuthorizationServiceHelper.determineAccountType(new PaymentAccount("accNum", "accHolder", 0.0))
         );
     }
 
@@ -37,7 +36,7 @@ class ServiceUtilsTest {
     void givenSavingsAccount_shouldReturnSavingsAccountType() {
         assertEquals(
                 "SAVINGS",
-                ServiceUtils.determineAccountType(new SavingsAccount("accNum", "accHolder", 0.0))
+                AccountAuthorizationServiceHelper.determineAccountType(new SavingsAccount("accNum", "accHolder", 0.0))
         );
     }
 
@@ -51,7 +50,7 @@ class ServiceUtilsTest {
         BankAccount bankAccRecord = BankAccount.builder()
                 .accountAuthorizations(accountAuthorizations)
                 .build();
-        BankAccount updatedBankAccRecord = ServiceUtils.checkIfUserIsAlreadyAuthorized(
+        BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
                 bankAccRecord,"ExistingGrantee", "READ"
         );
         assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 2);
@@ -67,7 +66,7 @@ class ServiceUtilsTest {
         BankAccount bankAccRecord = BankAccount.builder()
                 .accountAuthorizations(accountAuthorizations)
                 .build();
-        BankAccount updatedBankAccRecord = ServiceUtils.checkIfUserIsAlreadyAuthorized(
+        BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
                 bankAccRecord,"ExistingGrantee", "WRITE"
         );
         assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 2);
@@ -86,7 +85,7 @@ class ServiceUtilsTest {
         BankAccount bankAccRecord = BankAccount.builder()
                 .accountAuthorizations(accountAuthorizations)
                 .build();
-        BankAccount updatedBankAccRecord = ServiceUtils.checkIfUserIsAlreadyAuthorized(
+        BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
                 bankAccRecord,"Grantee_2", "WRITE"
         );
         assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 3);
@@ -102,7 +101,7 @@ class ServiceUtilsTest {
         BankAccount bankAccRecord = BankAccount.builder()
                 .accountAuthorizations(new ArrayList<AccountAuthorization>())
                 .build();
-        BankAccount updatedBankAccRecord = ServiceUtils.checkIfUserIsAlreadyAuthorized(
+        BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
                 bankAccRecord,"NewGrantee", "READ"
         );
         assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 1);

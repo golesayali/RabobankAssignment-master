@@ -13,7 +13,18 @@ import java.util.List;
  * @author Sayali G
  */
 public interface AccountAuthorizationService {
+    /**
+     * Create authorization.
+     *
+     * @param grantee the grantee
+     */
     void createAuthorization(PowerOfAttorney grantee);
 
+    /**
+     * Gets accounts for grantee.
+     *
+     * @param name the name
+     * @return the accounts for grantee
+     */
     List<BankAccount> getAccountsForGrantee(String name);
 }

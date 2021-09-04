@@ -1,4 +1,4 @@
-package nl.rabobank.util;
+package nl.rabobank.service;
 
 import nl.rabobank.account.Account;
 import nl.rabobank.account.PaymentAccount;
@@ -14,8 +14,8 @@ import java.util.stream.IntStream;
  *
  * @author Sayali G
  */
-public class ServiceUtils {
-    ServiceUtils() {
+public class AccountAuthorizationServiceHelper {
+    AccountAuthorizationServiceHelper() {
         throw new IllegalStateException("Utility Classes should not have public constructors");
     }
 

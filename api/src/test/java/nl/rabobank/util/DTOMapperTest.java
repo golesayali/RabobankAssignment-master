@@ -6,11 +6,12 @@ import nl.rabobank.authorizations.PowerOfAttorney;
 import nl.rabobank.dto.AccountAuthorizationDTO;
 import nl.rabobank.dto.CreateAuthorizationRequest;
 import nl.rabobank.dto.RetrieveAuthorizationsResponse;
+import nl.rabobank.mongo.entity.AccountAuthorization;
 import nl.rabobank.mongo.entity.BankAccount;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,9 +20,7 @@ class DTOMapperTest {
 
     @Test
     void whenInstantiatingDTOMapperClass_shouldThrowException() {
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            new DTOMapper();
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, DTOMapper::new);
         assertEquals("Utility Classes should not have public constructors", exception.getMessage());
 
     }
@@ -33,12 +32,16 @@ class DTOMapperTest {
                 .accountNumber("test_AccNumber")
                 .accountType("PAYMENT")
                 .accountHolderName("test_accountHolderName")
+                .accountAuthorizations(
+                        Collections.singletonList(AccountAuthorization.builder().accessType("READ").granteeName("test_Grantee").build())
+                )
                 .build());
         String granteeName = "test_Grantee";
         RetrieveAuthorizationsResponse response = DTOMapper.mapServiceOutputToResponse(authorizedAccountsForGrantee, granteeName);
         assertNotNull(response);
         assertEquals(RetrieveAuthorizationsResponse.builder()
-                        .authorizedAccounts(Arrays.asList(AccountAuthorizationDTO.builder().accountNumber("test_AccNumber").accountType("PAYMENT").build()))
+                        .authorizedAccounts(Collections.singletonList(AccountAuthorizationDTO.builder()
+                                .accountNumber("test_AccNumber").accountType("PAYMENT").accessType("READ").build()))
                         .granteeName(granteeName)
                         .build(),
                 response);

@@ -9,6 +9,11 @@ public class AccountAuthorizationException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new Account authorization exception.
+     *
+     * @param message the error message
+     */
     public AccountAuthorizationException(String message) {
         super(message);
     }

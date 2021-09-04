@@ -15,7 +15,20 @@ import java.util.Optional;
 @Repository
 public interface BankAccountRepository extends MongoRepository<BankAccount, String> {
 
+    /**
+     * Find by account number and account type optional.
+     *
+     * @param accountNumber the account number
+     * @param accountType   the account type
+     * @return the optional
+     */
     Optional<BankAccount> findByAccountNumberAndAccountType(String accountNumber, String accountType);
 
+    /**
+     * Find by account authorizations grantee name list.
+     *
+     * @param granteeName the grantee name
+     * @return the list
+     */
     List<BankAccount> findByAccountAuthorizationsGranteeName(String granteeName);
 }

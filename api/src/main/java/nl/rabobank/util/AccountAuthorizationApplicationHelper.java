@@ -11,12 +11,23 @@ import nl.rabobank.exception.AccountAuthorizationException;
  *
  * @author Sayali G
  */
-public class ApplicationUtils {
+public class AccountAuthorizationApplicationHelper {
 
-    ApplicationUtils() {
+    /**
+     * Instantiates a new Account authorization application helper.
+     */
+    AccountAuthorizationApplicationHelper() {
         throw new IllegalStateException("Utility Classes should not have public constructors");
     }
 
+    /**
+     * Returns the Account object depending on account type provided.
+     *
+     * @param accountType   the account type
+     * @param accountNumber the account number
+     * @param grantorName   the grantor name
+     * @return the account
+     */
     static Account determineAccountType(String accountType, String accountNumber, String grantorName) {
         switch (accountType) {
             case "PAYMENT": {
@@ -30,6 +41,12 @@ public class ApplicationUtils {
         }
     }
 
+    /**
+     * Returns the Authorization depending on typeOfAuthorization.
+     *
+     * @param typeOfAuthorization the type of authorization
+     * @return the authorization
+     */
     static Authorization determineAuthorization(String typeOfAuthorization) {
         switch (typeOfAuthorization) {
             case "READ": {

@@ -11,5 +11,5 @@ import lombok.Value;
 @Value
 @Builder
 public class CreateAuthorizationResponse {
-    private String message;
+    String message;
 }

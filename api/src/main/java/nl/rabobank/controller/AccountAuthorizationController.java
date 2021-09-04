@@ -1,13 +1,11 @@
 package nl.rabobank.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.rabobank.dto.CreateAuthorizationRequest;
 import nl.rabobank.dto.CreateAuthorizationResponse;
+import nl.rabobank.dto.RetrieveAuthorizationRequest;
 import nl.rabobank.dto.RetrieveAuthorizationsResponse;
 import nl.rabobank.mongo.entity.BankAccount;
 import nl.rabobank.service.AccountAuthorizationService;
@@ -18,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -28,22 +27,35 @@ import java.util.List;
 @Api(value = AccountAuthorizationController.ACCOUNT_AUTH_API_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequestMapping(value = AccountAuthorizationController.ACCOUNT_AUTH_API_PATH, produces = {MediaType.APPLICATION_JSON_VALUE})
 @RestController
+@AllArgsConstructor
 @Slf4j
 public class AccountAuthorizationController {
-    public static final String ACCOUNT_AUTH_API_PATH = "/v1/account";
+    /**
+     * The constant ACCOUNT_AUTH_API_PATH.
+     */
+    public static final String ACCOUNT_AUTH_API_PATH = "/v1/account/authorization";
 
+    /**
+     * The Account authorization service.
+     */
     @Autowired
     AccountAuthorizationService accountAuthorizationService;
 
+    /**
+     * Users can create write or read access for payments and savings accounts.
+     *
+     * @param createAuthorizationRequest the create authorization request
+     * @return the response entity
+     */
     @ApiOperation(value = "Create write or read access for payments and savings accounts",
             httpMethod = "POST",
-            response = String.class)
+            response = CreateAuthorizationResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 401, message = "Not authorized"),
             @ApiResponse(code = 400, message = "Bad Request")})
-    @PostMapping("/authorization")
+    @PostMapping
     public ResponseEntity<CreateAuthorizationResponse> createAuthorization(
-            @RequestBody CreateAuthorizationRequest createAuthorizationRequest) {
+           @RequestBody  @Valid CreateAuthorizationRequest createAuthorizationRequest) {
 
         log.info("Account holder [{}] is granting authorization for user [{}] on account [{}]",
                 createAuthorizationRequest.getGrantorName(),
@@ -62,6 +74,12 @@ public class AccountAuthorizationController {
                 HttpStatus.CREATED);
     }
 
+    /**
+     * Users can retrieve a list of accounts they have read or write access for.
+     *
+     * @param retrieveAuthorizationRequest the retrieve authorization request
+     * @return the response entity
+     */
     @ApiOperation(
             value = "Retrieve a list of accounts user has access for",
             httpMethod = "GET",
@@ -69,14 +87,14 @@ public class AccountAuthorizationController {
     @ApiResponses(value = {
             @ApiResponse(code = 401, message = "Not authorized"),
             @ApiResponse(code = 400, message = "Bad Request")})
-    @GetMapping("/authorization/{granteeName}")
+    @GetMapping
     public ResponseEntity<RetrieveAuthorizationsResponse> retrieveAuthorizations(
             @ApiParam(name = "granteeName", value = "Grantee Name", required = true)
-            @PathVariable String granteeName) {
+            @RequestBody  @Valid RetrieveAuthorizationRequest retrieveAuthorizationRequest) {
 
-        log.info("Retrieving list of authorized accounts for user [{}]", granteeName);
-        List<BankAccount> bankAccounts = accountAuthorizationService.getAccountsForGrantee(granteeName);
-        return new ResponseEntity<>(DTOMapper.mapServiceOutputToResponse(bankAccounts, granteeName),
+        log.info("Retrieving list of authorized accounts for user [{}]", retrieveAuthorizationRequest.getGranteeName());
+        List<BankAccount> bankAccounts = accountAuthorizationService.getAccountsForGrantee(retrieveAuthorizationRequest.getGranteeName());
+        return new ResponseEntity<>(DTOMapper.mapServiceOutputToResponse(bankAccounts, retrieveAuthorizationRequest.getGranteeName()),
                 HttpStatus.OK);
     }
 

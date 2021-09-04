@@ -2,7 +2,6 @@ package nl.rabobank.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Value;
 
 /**
  * This is DTO for account authorization object
@@ -14,4 +13,5 @@ import lombok.Value;
 public class AccountAuthorizationDTO {
     private String accountNumber;
     private String accountType;
+    private String accessType;
 }
