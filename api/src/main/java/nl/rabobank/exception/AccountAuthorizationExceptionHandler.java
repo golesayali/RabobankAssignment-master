@@ -1,5 +1,6 @@
 package nl.rabobank.exception;
 
+import nl.rabobank.dto.ExceptionResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -59,8 +60,7 @@ public class AccountAuthorizationExceptionHandler extends ResponseEntityExceptio
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request)
-    {
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
         String errorMessage = ex.getBindingResult().getFieldErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .findFirst()

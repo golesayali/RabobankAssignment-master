@@ -55,7 +55,7 @@ public class AccountAuthorizationController {
             @ApiResponse(code = 400, message = "Bad Request")})
     @PostMapping
     public ResponseEntity<CreateAuthorizationResponse> createAuthorization(
-           @RequestBody  @Valid CreateAuthorizationRequest createAuthorizationRequest) {
+            @RequestBody @Valid CreateAuthorizationRequest createAuthorizationRequest) {
 
         log.info("Account holder [{}] is granting authorization for user [{}] on account [{}]",
                 createAuthorizationRequest.getGrantorName(),
@@ -69,7 +69,7 @@ public class AccountAuthorizationController {
 
         return new ResponseEntity<>(
                 CreateAuthorizationResponse.builder()
-                        .message("Successfully granted access to grantee : "+ createAuthorizationRequest.getGranteeName())
+                        .message("Successfully granted access to grantee : " + createAuthorizationRequest.getGranteeName())
                         .build(),
                 HttpStatus.CREATED);
     }
@@ -90,7 +90,7 @@ public class AccountAuthorizationController {
     @GetMapping
     public ResponseEntity<RetrieveAuthorizationsResponse> retrieveAuthorizations(
             @ApiParam(name = "granteeName", value = "Grantee Name", required = true)
-            @RequestBody  @Valid RetrieveAuthorizationRequest retrieveAuthorizationRequest) {
+            @RequestBody @Valid RetrieveAuthorizationRequest retrieveAuthorizationRequest) {
 
         log.info("Retrieving list of authorized accounts for user [{}]", retrieveAuthorizationRequest.getGranteeName());
         List<BankAccount> bankAccounts = accountAuthorizationService.getAccountsForGrantee(retrieveAuthorizationRequest.getGranteeName());

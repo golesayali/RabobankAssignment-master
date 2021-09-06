@@ -22,20 +22,17 @@ import lombok.RequiredArgsConstructor;
 @EnableConfigurationProperties(MongoProperties.class)
 @Import(EmbeddedMongoAutoConfiguration.class)
 @RequiredArgsConstructor
-public class MongoConfiguration extends AbstractMongoClientConfiguration
-{
+public class MongoConfiguration extends AbstractMongoClientConfiguration {
     private final MongoProperties mongoProperties;
 
     @Override
-    protected String getDatabaseName()
-    {
+    protected String getDatabaseName() {
         return mongoProperties.getMongoClientDatabase();
     }
 
     @Override
     @Bean(destroyMethod = "close")
-    public MongoClient mongoClient()
-    {
+    public MongoClient mongoClient() {
         return MongoClients.create(mongoProperties.determineUri());
     }
 }

@@ -16,15 +16,13 @@ import nl.rabobank.mongo.MongoConfiguration;
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class})
 @Import(MongoConfiguration.class)
 @Slf4j
-public class AccountAuthorizationApplication
-{
+public class AccountAuthorizationApplication {
     /**
      * This method is triggered to start account authorization application
      *
      * @param args the args
      */
-    public static void main(final String[] args)
-    {
+    public static void main(final String[] args) {
         SpringApplication.run(AccountAuthorizationApplication.class, args);
 
         log.info("Account Authorization Application Started");

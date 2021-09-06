@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureDataMongo
 @SpringBootTest
-class AccountAuthorizationControllerIntegTest {
+class ITAccountAuthorizationControllerTest {
 
     private static final String CONNECTION_STRING = "mongodb://%s:%d";
     private static final String COLLECTION_NAME = "bankaccount";
@@ -82,7 +82,7 @@ class AccountAuthorizationControllerIntegTest {
      *
      * @throws Exception the exception
      */
-    static void setupEmbeddedDbAndCollection() throws Exception {
+    void setupEmbeddedDbAndCollection() throws Exception {
         String ip = "localhost";
         int port = 27017;
 

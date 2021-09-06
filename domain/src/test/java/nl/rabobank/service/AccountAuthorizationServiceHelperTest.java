@@ -51,9 +51,9 @@ class AccountAuthorizationServiceHelperTest {
                 .accountAuthorizations(accountAuthorizations)
                 .build();
         BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
-                bankAccRecord,"ExistingGrantee", "READ"
+                bankAccRecord, "ExistingGrantee", "READ"
         );
-        assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 2);
+        assertEquals(2, updatedBankAccRecord.getAccountAuthorizations().size());
         assertTrue(updatedBankAccRecord.getAccountAuthorizations().contains(existingAuthorization));
     }
 
@@ -67,9 +67,9 @@ class AccountAuthorizationServiceHelperTest {
                 .accountAuthorizations(accountAuthorizations)
                 .build();
         BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
-                bankAccRecord,"ExistingGrantee", "WRITE"
+                bankAccRecord, "ExistingGrantee", "WRITE"
         );
-        assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 2);
+        assertEquals(2, updatedBankAccRecord.getAccountAuthorizations().size());
         assertEquals(
                 updatedBankAccRecord.getAccountAuthorizations().stream()
                         .filter(auth -> auth.getGranteeName().equals("ExistingGrantee"))
@@ -81,19 +81,20 @@ class AccountAuthorizationServiceHelperTest {
     void whenGranteeIsNotPresentInAccountAuthorizations_shouldAddNewEntryInAuthorizationList() {
         List<AccountAuthorization> accountAuthorizations = new ArrayList<AccountAuthorization>(
                 Arrays.asList(AccountAuthorization.builder().granteeName("ExistingGrantee").accessType("READ").build(),
-                AccountAuthorization.builder().granteeName("Grantee_1").accessType("WRITE").build()));
+                        AccountAuthorization.builder().granteeName("Grantee_1").accessType("WRITE").build()));
         BankAccount bankAccRecord = BankAccount.builder()
                 .accountAuthorizations(accountAuthorizations)
                 .build();
         BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
-                bankAccRecord,"Grantee_2", "WRITE"
+                bankAccRecord, "Grantee_2", "WRITE"
         );
-        assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 3);
+        assertEquals(3, updatedBankAccRecord.getAccountAuthorizations().size());
         assertEquals(
+                Authorization.WRITE.name(),
                 updatedBankAccRecord.getAccountAuthorizations().stream()
                         .filter(auth -> auth.getGranteeName().equals("Grantee_2"))
-                        .findFirst().get().getAccessType(),
-                Authorization.WRITE.name());
+                        .findFirst().get().getAccessType()
+        );
     }
 
     @Test
@@ -102,9 +103,9 @@ class AccountAuthorizationServiceHelperTest {
                 .accountAuthorizations(new ArrayList<AccountAuthorization>())
                 .build();
         BankAccount updatedBankAccRecord = AccountAuthorizationServiceHelper.checkIfUserIsAlreadyAuthorized(
-                bankAccRecord,"NewGrantee", "READ"
+                bankAccRecord, "NewGrantee", "READ"
         );
-        assertEquals(updatedBankAccRecord.getAccountAuthorizations().size(), 1);
+        assertEquals(1, updatedBankAccRecord.getAccountAuthorizations().size());
         assertTrue(updatedBankAccRecord.getAccountAuthorizations().contains(
                 AccountAuthorization.builder().granteeName("NewGrantee").accessType("READ").build()
         ));

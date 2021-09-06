@@ -1,19 +1,18 @@
-package nl.rabobank.exception;
+package nl.rabobank.dto;
 
-import lombok.Getter;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 /**
  * This ExceptionResponse wrap exception and http status.
  *
  * @author Sayali G
  */
-@Getter
-public class ExceptionResponse extends ResponseEntity {
+@Value
+public class ExceptionResponse {
 
-    private final HttpStatus status;
-    private final String message;
+    HttpStatus status;
+    String message;
 
     /**
      * Instantiates a new Exception response.
@@ -22,7 +21,6 @@ public class ExceptionResponse extends ResponseEntity {
      * @param status  the status
      */
     public ExceptionResponse(String message, HttpStatus status) {
-        super(message, status);
         this.status = status;
         this.message = message;
     }

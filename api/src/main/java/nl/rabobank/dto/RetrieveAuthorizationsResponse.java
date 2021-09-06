@@ -14,5 +14,5 @@ import java.util.List;
 @Builder()
 public class RetrieveAuthorizationsResponse {
     String granteeName;
-    private List<AccountAuthorizationDTO> authorizedAccounts;
+    List<AccountAuthorizationDTO> authorizedAccounts;
 }

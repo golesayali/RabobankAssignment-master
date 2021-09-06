@@ -18,5 +18,5 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class RetrieveAuthorizationRequest {
     @NotBlank(message = "granteeName should not be empty or null")
-    private String granteeName;
+    String granteeName;
 }

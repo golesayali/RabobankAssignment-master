@@ -7,8 +7,8 @@ import nl.rabobank.exception.ResourceNotFoundException;
 import nl.rabobank.mongo.entity.AccountAuthorization;
 import nl.rabobank.mongo.entity.BankAccount;
 import nl.rabobank.mongo.repository.BankAccountRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +32,7 @@ class AccountAuthorizationServiceImplTest {
     @Mock
     BankAccountRepository dao;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.openMocks(this);
     }

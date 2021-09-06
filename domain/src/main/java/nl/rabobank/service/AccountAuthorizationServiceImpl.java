@@ -29,7 +29,7 @@ public class AccountAuthorizationServiceImpl implements AccountAuthorizationServ
     BankAccountRepository bankAccountRepository;
 
     @Override
-    public void createAuthorization(PowerOfAttorney grantee) throws ResourceNotFoundException{
+    public void createAuthorization(PowerOfAttorney grantee) throws ResourceNotFoundException {
         log.debug("Creating authorization for account number : [{}]", grantee.getAccount().getAccountNumber());
         BankAccount bankAccountRecord = Optional.of(retrieveBankAccount(grantee.getAccount())).get()
                 .orElseThrow(() ->
