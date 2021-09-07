@@ -49,21 +49,32 @@ Please ensure that the MongoDB local server is running at localhost:27017. The a
 
 After running the project on dev/local environment and browse **http://localhost:8080/swagger-ui.html**
 
+
+### Javadoc
+command mvn javadoc:javadoc
+For javadocs, please refer to links below for each module:
+- api     : **http://localhost:63342/rabobank-assignment/rabobank-assignment-api/target/site/apidocs/index.html**
+- data    : **http://localhost:63342/rabobank-assignment/rabobank-assignment-data/target/site/apidocs/index.html**
+- domain  : **http://localhost:63342/rabobank-assignment/rabobank-assignment-domain/target/site/apidocs/index.html**
+
+
 ## Test & Run Application
 
 ### Using Unit Test Cases and Integration Test Cases
 
 You can create code coverage reports by running the following commands on command line:
 
-| Profile                          | Command                                  | Description                                                                                                                |
-| :----------------------------    | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| dev                              | mvn clean test                           | runs unit tests and creates the code coverage report for unit tests to the directory target/site/jacoco-ut                 |
-| integration-test                 | mvn clean verify -P integration-test     | runs integration tests and creates the code coverage report for integration tests to the directory target/site/jacoco-it   |
-| all-tests                        | mvn clean verify -P all-tests            | runs unit and integration tests and creates code coverage reports for unit and integration tests                           |
+| Profile                          | Command                                                 | Description                                                                                                                |
+| :----------------------------    | :------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------- |
+| dev                              | mvn clean test                                          | runs unit tests and creates the code coverage report for unit tests to the directory target/site/jacoco-ut                 |
+| integration-test                 | mvn clean verify -P integration-test -Dserver.port=8081 | runs integration tests and creates the code coverage report for integration tests to the directory target/site/jacoco-it   |
+| all-tests                        | mvn clean verify -P all-tests -Dserver.port=8081        | runs unit and integration tests and creates code coverage reports for unit and integration tests                           |
 
 Profiles are defined for application to enable user to run different set of test cases according to need.
 
 ### Using Postman API Application (on Local machine)
+
+For testing the application using postman tool, we will need to insert some test account records in local test database. This can be done by using steps mentioned below:
 
 1. Setup mongo import tool on local
     - Step 1: To use mongoimport tool we have to first download the MongoDB database tools .zip file

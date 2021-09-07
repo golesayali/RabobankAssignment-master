@@ -21,7 +21,7 @@ class DTOMapperTest {
     @Test
     void whenInstantiatingDTOMapperClass_shouldThrowException() {
         Throwable exception = assertThrows(IllegalStateException.class, DTOMapper::new);
-        assertEquals("Utility Classes should not have public constructors", exception.getMessage());
+        assertEquals("Helper Classes should not have public constructors", exception.getMessage());
 
     }
 

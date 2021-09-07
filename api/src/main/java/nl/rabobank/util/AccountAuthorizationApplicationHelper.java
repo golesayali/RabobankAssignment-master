@@ -17,7 +17,7 @@ public class AccountAuthorizationApplicationHelper {
      * Instantiates a new Account authorization application helper.
      */
     AccountAuthorizationApplicationHelper() {
-        throw new IllegalStateException("Utility Classes should not have public constructors");
+        throw new IllegalStateException("Helper Classes should not have public constructors");
     }
 
     /**

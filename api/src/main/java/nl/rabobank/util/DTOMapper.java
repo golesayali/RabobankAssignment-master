@@ -22,7 +22,7 @@ public class DTOMapper {
      * Instantiates a new Dto mapper.
      */
     DTOMapper() {
-        throw new IllegalStateException("Utility Classes should not have public constructors");
+        throw new IllegalStateException("Helper Classes should not have public constructors");
     }
 
     /**

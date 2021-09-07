@@ -14,7 +14,7 @@ class AccountAuthorizationApplicationHelperTest {
     @Test
     void whenInstantiatingUtilsClass_shouldThrowException() {
         Throwable exception = assertThrows(IllegalStateException.class, AccountAuthorizationApplicationHelper::new);
-        assertEquals("Utility Classes should not have public constructors", exception.getMessage());
+        assertEquals("Helper Classes should not have public constructors", exception.getMessage());
 
     }
 

@@ -20,7 +20,7 @@ class AccountAuthorizationServiceHelperTest {
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             new AccountAuthorizationServiceHelper();
         });
-        assertEquals("Utility Classes should not have public constructors", exception.getMessage());
+        assertEquals("Helper Classes should not have public constructors", exception.getMessage());
 
     }
 

@@ -11,16 +11,16 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 import nl.rabobank.dto.CreateAuthorizationRequest;
 import nl.rabobank.dto.RetrieveAuthorizationRequest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
@@ -39,7 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @AutoConfigureMockMvc
 @AutoConfigureDataMongo
-@SpringBootTest
+@DirtiesContext
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ITAccountAuthorizationControllerTest {
 
     private static final String CONNECTION_STRING = "mongodb://%s:%d";
@@ -49,7 +50,7 @@ class ITAccountAuthorizationControllerTest {
     private static MongodExecutable mongodExecutable;
 
     @Autowired
-    private static MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -76,6 +77,7 @@ class ITAccountAuthorizationControllerTest {
         mongoTemplate.dropCollection(COLLECTION_NAME);
         mongodExecutable.stop();
     }
+
 
     /**
      * Sets embedded db and collection.
@@ -306,7 +308,7 @@ class ITAccountAuthorizationControllerTest {
                 .andExpect(jsonPath("$.authorizedAccounts[0].accessType", equalTo("READ")));
     }
 
-    private static void loadUpInitialDataInMongo() {
+    private void loadUpInitialDataInMongo() {
         try {
             for (Object line : Files.readAllLines(Paths.get(FILE_PATH), StandardCharsets.UTF_8)) {
                 mongoTemplate.save(line, COLLECTION_NAME);

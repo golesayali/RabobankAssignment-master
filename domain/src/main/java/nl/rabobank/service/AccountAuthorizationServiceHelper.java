@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  */
 public class AccountAuthorizationServiceHelper {
     AccountAuthorizationServiceHelper() {
-        throw new IllegalStateException("Utility Classes should not have public constructors");
+        throw new IllegalStateException("Helper Classes should not have public constructors");
     }
 
     public static String determineAccountType(Account account) {
