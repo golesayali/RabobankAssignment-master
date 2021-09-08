@@ -44,6 +44,7 @@ cd RabobankAssignment-master
 mvn spring-boot:run
 
 Please ensure that the MongoDB local server is running at localhost:27017. The application is now started on local.
+There is Troubleshooting Guide for commonly faced issues when doing local setup. Please refer to [TroubleshootingGuide](TroubleshootingGuide.md)
 
 ### API documentation
 
@@ -74,7 +75,14 @@ Profiles are defined for application to enable user to run different set of test
 
 ### Using Postman API Application (on Local machine)
 
-For testing the application using postman tool, we will need to insert some test account records in local test database. This can be done by using steps mentioned below:
+For testing the application using postman tool, we will need to insert some test account records in local test database. 
+This can be done by using steps mentioned below:
+
+Step 1 and 2 are describes way of importing data using mongoimport tool. 
+(Optional step for 1 & 2)
+If the mongo import tool does not work on your local the please use the test method defined in \RabobankAssignment-master\api\src\test\java\nl\rabobank\TestDataImportUtility.java.
+There is a test method loadTestDataForPostmanTesting() defined in this class which is disabled by default. You can uncomment the @Test annotation and run this test to load test data in your local DB.
+Please ensure that the port and ip are correctly pointing to your local DB instance. Also do not commit this class to main. After doing this you can proceed to step 3 mentioned below
 
 1. Setup mongo import tool on local
     - Step 1: To use mongoimport tool we have to first download the MongoDB database tools .zip file
@@ -93,7 +101,7 @@ For testing the application using postman tool, we will need to insert some test
     - Step 4: Run this command
       : mongoimport –-jsonArray –-db test –-collection bankaccount –-file <path_to_test_data_file>
       Note: test data file is present at  [~\RabobankAssignment-master\api\src\test\resources\bankaccount.json]
-
+      
 3. Import the collection in Postman application and run the collection Import the collection present
    at [~\RabobankAssignment-master\api\src\test\resources\AccountAuthorizationApplication.postman_collection.json] into
    your Postman application.
@@ -106,6 +114,7 @@ For testing the application using postman tool, we will need to insert some test
 2. Implement security in the requests (using SSL/TLS).
 3. Containerize the application(eg. using docker).
 4. Deploy applications in Kubernetes for high scalability and high availability.
+5. When the application is up, running integration tests results in error. This needs to be fixed by doing proper profiling for application.
 
 ## Author
 

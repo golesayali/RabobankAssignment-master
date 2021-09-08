@@ -21,10 +21,19 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec
-        </jacoco.it.execution.data.file>
-        <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
-        </jacoco.ut.execution.data.file>
+        <jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
+        <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
+        <spring.boot.dependencies.version>2.5.1</spring.boot.dependencies.version>
+        <jacoco.version>0.8.7</jacoco.version>
+        <surefire.maven.version>3.0.0-M5</surefire.maven.version>
+        <failsafe.maven.version>3.0.0-M5</failsafe.maven.version>
+        <javadoc.maven.version>3.3.0</javadoc.maven.version>
+        <compiler.maven.version>3.8.1</compiler.maven.version>
+        <build.helper.maven.version>1.9.1</build.helper.maven.version>
+        <resources.maven.plugin.version>2.7</resources.maven.plugin.version>
+        <json.simple.version>1.1.1</json.simple.version>
+        <springfox.swagger.version>2.9.2</springfox.swagger.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
     </properties>
 
     <profiles>
@@ -84,7 +93,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.5.1</version>
+                <version>${spring.boot.dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -119,7 +128,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -183,7 +192,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>${build.helper.maven.version}</version>
                 <executions>
                     <!-- Add a new source directory to our build -->
                     <execution>
@@ -222,7 +231,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${surefire.maven.version}</version>
                 <configuration>
                     <!-- Sets the VM argument line used when unit tests are run. -->
                     <argLine>${surefireArgLine}</argLine>
@@ -238,7 +247,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${failsafe.maven.version}</version>
                 <executions>
                     <!--Invokes both the integration-test and the verify goals of the Failsafe Maven plugin-->
                     <execution>
@@ -262,7 +271,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>${javadoc.maven.version}</version>
                 <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
@@ -271,7 +280,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${compiler.maven.version}</version>
                 <configuration>
                     <release>11</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
@@ -280,7 +289,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>${resources.maven.plugin.version}</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -301,9 +310,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>${javadoc.maven.version}</version>
                 <configuration>
-                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
                     <show>public</show>
                 </configuration>
             </plugin>

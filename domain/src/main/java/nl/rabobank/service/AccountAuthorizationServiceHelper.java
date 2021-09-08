@@ -15,10 +15,19 @@ import java.util.stream.IntStream;
  * @author Sayali G
  */
 public class AccountAuthorizationServiceHelper {
+    /**
+     * Instantiates a new Account authorization service helper.
+     */
     AccountAuthorizationServiceHelper() {
         throw new IllegalStateException("Helper Classes should not have public constructors");
     }
 
+    /**
+     * Determine account type string.
+     *
+     * @param account the account
+     * @return the string
+     */
     public static String determineAccountType(Account account) {
         if (account instanceof PaymentAccount) {
             return "PAYMENT";
@@ -29,6 +38,14 @@ public class AccountAuthorizationServiceHelper {
         return "";
     }
 
+    /**
+     * Check if user is already authorized bank account.
+     *
+     * @param bankAccountRecord the bank account record
+     * @param granteeName       the grantee name
+     * @param accessType        the access type
+     * @return the bank account
+     */
     public static BankAccount checkIfUserIsAlreadyAuthorized(BankAccount bankAccountRecord, String granteeName, String accessType) {
         AccountAuthorization accountAuthorization = AccountAuthorization.builder()
                 .granteeName(granteeName)
